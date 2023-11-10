@@ -1,0 +1,9 @@
+.logo {
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+}
+
+.dropdown-menu li:hover a {
+    color: #000 !important;
+}
