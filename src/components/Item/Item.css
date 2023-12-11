@@ -1,0 +1,16 @@
+.card img {
+    max-height: 280px;
+}
+
+.card .badge {
+    top: 25px;
+    right: 25px;
+}
+
+.card .badge-pacifico {
+    background-color: gray;
+}
+
+.card .badge-atlantico {
+    background-color: slategray;
+}

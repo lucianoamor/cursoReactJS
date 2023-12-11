@@ -1,25 +1,29 @@
-// assets
-import Logo from "./img/logo.png";
-import "bootstrap/dist/js/bootstrap.js";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "./App.css";
+// router
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+
+// pages
+import Layout from "./pages/Layout";
+import Error from "./pages/Error";
 
 // components
-import NavBar from "./components/NavBar/NavBar";
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
-import Footer from "./components/Footer/Footer";
+import ProductDetail from "./components/ProductDetail/ProductDetail";
 
-const title    = "World Market";
-const homeText = "En construcción. Pronto podrás usar el e-commerce.";
+// assets
+import "./App.css";
 
 function App() {
 	return (
-		<div>
-			<NavBar logo = {Logo} title = {title} />
-			<ItemListContainer greeting = {homeText} />
-			<Footer logo = {Logo} title = {title} />
-		</div>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<Layout />}>
+					<Route index element={<ItemListContainer />} />
+					<Route path="/category/:id" element={<ItemListContainer />} />
+					<Route path="/item/:id" element={<ProductDetail />} />
+					<Route path="*" element={<Error />} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
 	);
 }
 
