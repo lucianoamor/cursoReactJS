@@ -12,7 +12,6 @@ function CartContext({children}) {
         if(k > -1) {
             const cartProducts = cart.products;
             cartProducts[k].quantity += q;
-
             setCart({
                 ...cart,
                 quantity: cart.quantity + q,
@@ -38,7 +37,7 @@ function CartContext({children}) {
     }
 
     return (
-        <DataContext.Provider value={{cart, add, reset}}>
+        <DataContext.Provider value={{cart, setCart, add, reset}}>
             {children}
         </DataContext.Provider>
     )

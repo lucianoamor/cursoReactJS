@@ -4,11 +4,14 @@ import {useState, useContext} from 'react';
 // context
 import {DataContext} from "../../context/CartContext";
 
+// api
+import setOrder from "../../insert";
+
 // assets
 import './Checkout.css';
 
 function Checkout() {
-    const {cart, reset} = useContext(DataContext);
+    const {cart, setCart, reset} = useContext(DataContext);
 
     const [name, setName]         = useState("");
     const [lastname, setLastname] = useState("");
@@ -42,14 +45,28 @@ function Checkout() {
 
         setError(false);
         setBtnDisabled(false);
+
+        setCart({
+            ...cart,
+            date: new Date(),
+            name: name + ' ' + lastname,
+            email: email
+        });
     }
 
     function handleSubmit(e) {
         e.preventDefault();
-
-
-        setStatus();
-
+        setOrder(cart).then(response => {
+            if(response.id) {
+                setStatus(response.id);
+                reset();
+            }
+            else
+                console.log(error);
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
 
     return (
@@ -57,6 +74,7 @@ function Checkout() {
             <div className="row g-4 mt-0">
                 <div className="col-6">
                     <h4>Resumen del pedido</h4>
+                    {cart.products.length ? (
                     <table className="table">
                         <thead>
                             <tr>
@@ -86,8 +104,12 @@ function Checkout() {
                             </tr>
                         </tfoot>
                     </table>
+                    ) : (
+                    <p>No hay productos en el carrito.</p>
+                    )}
                 </div>
                 <div className="col-1"></div>
+                {(cart.products.length > 0 || status !== 0) &&
                 <div className="col">
                     {status === 0 ? (
                     <form>
@@ -113,7 +135,6 @@ function Checkout() {
                             <input type="email" className="form-control" id="email2" value={email2} onChange={(e) => setEmail2(e.target.value)} onKeyUp={handleValidation} />
                         </div>
                         <button className="btn btn-success" disabled={btnDisabled} onClick={handleSubmit}>COMPRAR</button>
-
                     </form>
                     ) : (
                     <div className="alert alert-success">
@@ -128,6 +149,7 @@ function Checkout() {
                     </div>
                     }
                 </div>
+                }
             </div>
         </div>
     );
