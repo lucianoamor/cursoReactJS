@@ -7,23 +7,30 @@ import Error from "./pages/Error";
 
 // components
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
-import ProductDetail from "./components/ProductDetail/ProductDetail";
+import ProductDetailContainer from "./components/ProductDetailContainer/ProductDetailContainer";
+import Checkout from "./components/Checkout/Checkout";
+
+// context
+import CartContext from './context/CartContext.js';
 
 // assets
 import "./App.css";
 
 function App() {
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<Layout />}>
-					<Route index element={<ItemListContainer />} />
-					<Route path="/category/:id" element={<ItemListContainer />} />
-					<Route path="/item/:id" element={<ProductDetail />} />
-					<Route path="*" element={<Error />} />
-				</Route>
-			</Routes>
-		</BrowserRouter>
+		<CartContext>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Layout />}>
+						<Route index element={<ItemListContainer />} />
+						<Route path="/category/:id" element={<ItemListContainer />} />
+						<Route path="/item/:id" element={<ProductDetailContainer />} />
+						<Route path="/cart" element={<Checkout />} />
+						<Route path="*" element={<Error />} />
+					</Route>
+				</Routes>
+			</BrowserRouter>
+		</CartContext>
 	);
 }
 

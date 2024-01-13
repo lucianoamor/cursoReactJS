@@ -10,14 +10,15 @@ function Item(props) {
     return (
         <div className="col">
             <div className="card h-100">
-                <img src={img} className="card-img-top p-3 pb-0" alt="" />
-                <span className={`position-absolute badge rounded-pill badge-${categoryUrl}`}>{category}</span>
+            {id != 0 && <img src={img} className="card-img-top p-3 pb-0" alt="" />}
+                {id != 0 && <span className={`position-absolute badge rounded-pill badge-${categoryUrl}`}>{category}</span>}
                 <div className="card-body">
                     <h5 className="card-title">{title}</h5>
                     <p className="card-text">
                         {description}
                     </p>
                 </div>
+                {id != 0 &&
                 <div className="card-footer">
                     <div className="d-flex flex-row">
                         <p className="fs-4 w-50">$ {price}</p>
@@ -25,9 +26,8 @@ function Item(props) {
                     </div>
                     <div className="d-flex flex-row pb-2">
                         <Link to={`/item/${id}`} className="btn btn-primary flex-fill me-2">Ver detalle</Link>
-                        <button className="btn btn-success flex-fill ms-2 disabled">Comprar</button>
                     </div>
-                </div>
+                </div>}
             </div>
         </div>
     )

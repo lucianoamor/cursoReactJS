@@ -7,7 +7,7 @@ import {useParams} from "react-router-dom";
 // components
 import Item from "../../components/Item/Item";
 
-// mock function
+// api
 import getProducts from "../../api";
 
 // assets
@@ -19,8 +19,8 @@ function ItemListContainer() {
     useEffect(() => {
         getProducts(0, id)
             .then(response => {
-                if(response.length)
-                    setProducts(response);
+                if(response.docs.length)
+                    setProducts(response.docs.map((p) => ({id: p.id, ...p.data()})));
                 else
                     setProducts([{id: 0, title: "Error", category: "", categoryUrl: "", categoryID: 0, img: "", price: "", stock: "", description: "No hay resultados"}]);
             })
